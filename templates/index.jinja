@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WEEK {{ week }} DAY {{ day }}</title>
+    <style>
+      @font-face {
+        font-family: "Smooth Marker";
+        src: url("/static/smooth-marker.ttf") format("truetype");
+      }
+
+      body {
+        background-color: #fff;
+        font-family: "Smooth Marker", sans-serif;
+        font-size: 3vh;
+        padding: 0 2vw;
+        line-height: 1.2;
+        overflow-x: auto;
+      }
+
+      h1 {
+        font-size: 1.5em;
+        margin-bottom: 0.5em;
+      }
+
+      p {
+        margin: 0.2em 0;
+        white-space: nowrap;
+      }
+
+      .superset {
+        margin-left: 2vw;
+      }
+
+      @media (min-height: 600px) {
+        body {
+          font-size: 3vh;
+        }
+      }
+
+      @media (min-height: 800px) {
+        body {
+          font-size: 5vh;
+        }
+      }
+
+      @media (min-height: 1000px) {
+        body {
+          font-size: 6vh;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>WEEK {{ week }} DAY {{ day }}</h1>
+    {% set ns = namespace(prev_name='') %}
+    {% for ex in exercises %}
+    {% if " SS " in ex.name %}
+    <p>
+      Superset | <span style="color: green">{{ ex.reps }}</span> |
+      <span style="color: blue">{{ ex.effort }}</span>
+    </p>
+    {% for split_ex in ex.name.split(" SS ") %}
+    <p class="superset">
+      <span style="color: red">{{ split_ex }}</span>
+    </p>
+    {% endfor %}
+    {% else %}
+    <p>
+      {% if ex.name == ns.prev_name %}
+      <span style="color: rgba(255, 0, 0, 0)">{{ ex.name }}</span> | 
+      {% else %}
+      <span style="color: red">{{ ex.name }}</span> |
+      {% endif %}
+      <span style="color: green">{{ ex.reps }}</span> |
+      <span style="color: blue">{{ ex.effort }}</span>
+    </p>
+    {% endif %}
+    {% set ns.prev_name = ex.name %}
+    {% endfor %}
+  </body>
+</html>

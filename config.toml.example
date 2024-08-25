@@ -1,0 +1,7 @@
+[[classes]]
+name = "John"
+sheet = "Put a class sheet id in here"
+hour = 7
+days = ["M", "W", "F"]
+
+
