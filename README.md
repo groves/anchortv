@@ -9,9 +9,12 @@ I then flashed the MicroSD, booted, ran `ssh anchortv.local` to get in, and did 
 
 ```sh
 nmcli c mod preconfigured 802-11-1wireless.powersave disable
+curl -fsSL https://pkgs.tailscale.com/stable/debian/bookworm.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
+curl -fsSL https://pkgs.tailscale.com/stable/debian/bookworm.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
 sudo apt update
 sudo apt full-upgrade -y
-sudo apt-get install mosh openbox lightdm firefox-esr
+sudo apt-get install mosh openbox lightdm firefox-esr tailscale unclutter
+sudo tailscale up
 curl -sSL https://install.python-poetry.org | python3 -
 mkdir .config/openbox
 mkdir -p .config/systemd/user
@@ -26,3 +29,5 @@ sudo reboot
 ```
 
 With that it should boot to Firefox in kiosk mode showing the webapp.
+With Tailscale running, I generally `mosh anchortv` from my Tailnet to get in.
+I turned off key expiry in the Tailscale admin to keep from having to futz with this.
