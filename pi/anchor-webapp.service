@@ -1,0 +1,12 @@
+[Unit]
+Description=Anchor Webapp
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=%h/.local/bin/poetry run uvicorn app:app
+WorkingDirectory=%h/anchor
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
