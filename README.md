@@ -24,7 +24,7 @@ curl -fsSL https://pkgs.tailscale.com/stable/debian/bookworm.noarmor.gpg | sudo 
 curl -fsSL https://pkgs.tailscale.com/stable/debian/bookworm.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
 sudo apt update
 sudo apt full-upgrade -y
-sudo apt-get install mosh openbox lightdm firefox-esr tailscale unclutter
+sudo apt-get install cec-utils firefox-esr lightdm mosh openbox tailscale unclutter
 sudo tailscale up
 curl -sSL https://install.python-poetry.org | python3 -
 mkdir .config/openbox
@@ -36,6 +36,7 @@ After running that, I ran these final setup commands on the box:
 
 ```sh
 systemctl --user enable anchor-webapp.service
+systemctl --user enable tv-schedule.service
 sudo reboot
 ```
 

@@ -6,4 +6,4 @@ while true; do
     sleep 1
 done
 
-exec firefox --kiosk http://localhost:8000
+exec firefox --remote-debugging-port 9222 --kiosk http://localhost:8000

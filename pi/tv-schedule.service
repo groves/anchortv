@@ -1,0 +1,12 @@
+[Unit]
+Description=TV Schedule
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=%h/.local/bin/poetry run python tv.py
+WorkingDirectory=%h/anchor
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

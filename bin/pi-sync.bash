@@ -1,2 +1,2 @@
-rsync -rva pi/anchor-webapp.service anchortv.local:.config/systemd/user/anchor-webapp.service
-rsync -rva pi/openbox.autostart.sh anchortv.local:.config/openbox/autostart
+rsync -rva pi/anchor-webapp.service pi/tv-schedule.service anchortv:.config/systemd/user/
+rsync -rva pi/openbox.autostart.sh anchortv:.config/openbox/autostart

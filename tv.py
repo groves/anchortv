@@ -1,14 +1,17 @@
 import schedule
 import subprocess
 import time
+import httpx
 
 
 def cec(cmd: str):
     subprocess.run(["echo", cmd, "|", "cec-client", "-s", "-d", "1"])
 
 
-def on():
+def display():
+    httpx.post("http://localhost:9222/json/protocol/Page.reload", json={})
     cec("on 0")
+    cec("as")
 
 
 def standby():
@@ -16,7 +19,7 @@ def standby():
 
 
 for day in ["monday", "tuesday", "wednesday", "thursday", "friday"]:
-    getattr(schedule.every(), day).at("07:15").do(on)
+    getattr(schedule.every(), day).at("07:15").do(display)
     getattr(schedule.every(), day).at("09:15").do(standby)
 
 while 1:
