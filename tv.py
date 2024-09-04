@@ -1,7 +1,7 @@
 import schedule
 import subprocess
 import time
-import httpx
+import reload
 
 
 def cec(cmd: str):
@@ -9,7 +9,7 @@ def cec(cmd: str):
 
 
 def display():
-    httpx.post("http://localhost:9222/json/protocol/Page.reload", json={})
+    reload.run_reload()
     cec("on 0")
     cec("as")
 
