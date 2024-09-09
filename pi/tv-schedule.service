@@ -7,6 +7,7 @@ Wants=network-online.target
 ExecStart=%h/.local/bin/poetry run python tv.py
 WorkingDirectory=%h/anchor
 Restart=on-failure
+Environment="PYTHONUNBUFFERED=1"
 
 [Install]
 WantedBy=default.target

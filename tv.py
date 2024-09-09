@@ -5,7 +5,9 @@ import reload
 
 
 def cec(cmd: str):
-    subprocess.run(["echo", cmd, "|", "cec-client", "-s", "-d", "1"])
+    print("Sending", cmd)
+    bash_command = f'echo "{cmd}" | cec-client -s -d 1'
+    subprocess.run(bash_command, shell=True)
 
 
 def display():
@@ -18,17 +20,18 @@ def standby():
     cec("standby 0")
 
 
-for day in ["monday", "tuesday", "wednesday", "thursday", "friday"]:
+for day in ["tuesday", "thursday"]:
     getattr(schedule.every(), day).at("07:15").do(display)
     getattr(schedule.every(), day).at("09:15").do(standby)
 
-while 1:
-    n = schedule.idle_seconds()
-    if n is None:
-        # no more jobs
-        break
-    elif n > 0:
-        # sleep exactly the right amount of time
-        print("Sleeping", n, "seconds")
-        time.sleep(n)
-    schedule.run_pending()
+if __name__ == "__main__":
+    while 1:
+        n = schedule.idle_seconds()
+        if n is None:
+            print("No more jobs, exiting")
+            break
+        elif n > 0:
+            # sleep exactly the right amount of time
+            print("Sleeping", n, "seconds")
+            time.sleep(n)
+        schedule.run_pending()
