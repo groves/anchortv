@@ -1,7 +1,6 @@
 import schedule
 import subprocess
 import time
-import reload
 
 
 def cec(cmd: str):
@@ -11,9 +10,12 @@ def cec(cmd: str):
 
 
 def display():
-    reload.run_reload()
-    cec("on 0")
-    cec("as")
+    for _ in range(10):
+        cec("as 0")
+
+
+def reboot():
+    subprocess.run("sudo shutdown --reboot now", shell=True)
 
 
 def standby():
@@ -21,10 +23,11 @@ def standby():
 
 
 for day in ["tuesday", "thursday"]:
-    getattr(schedule.every(), day).at("07:15").do(display)
+    getattr(schedule.every(), day).at("07:15").do(reboot)
     getattr(schedule.every(), day).at("09:15").do(standby)
 
 if __name__ == "__main__":
+    display()
     while 1:
         n = schedule.idle_seconds()
         if n is None:
