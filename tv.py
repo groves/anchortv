@@ -27,6 +27,8 @@ for day in ["tuesday", "thursday"]:
     getattr(schedule.every(), day).at("09:15").do(standby)
 
 if __name__ == "__main__":
+    # Give Firefox a minute to load the page before running a bunch of cec-client processes
+    time.sleep(60)
     display()
     while 1:
         n = schedule.idle_seconds()
